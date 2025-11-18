@@ -1,129 +1,28 @@
-import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
+import Algoritmo1, { meta as algoritmo1Meta } from './pages/Algoritmo1.jsx'
+import Algoritmo2, { meta as algoritmo2Meta } from './pages/Algoritmo2.jsx'
+import Algoritmo3, { meta as algoritmo3Meta } from './pages/Algoritmo3.jsx'
+import Algoritmo4, { meta as algoritmo4Meta } from './pages/Algoritmo4.jsx'
+import Algoritmo5, { meta as algoritmo5Meta } from './pages/Algoritmo5.jsx'
 
-const algorithms = [
-  {
-    slug: 'criador-1',
-    label: 'Algoritmo 1',
-    summary:
-      'Slot do integrante 1. Descreva de forma simples o que o algoritmo faz, quais dados recebe e qual resultado o visitante deve ver.',
-    level: 'Intermediario',
-    complexity: 'O(n)',
-    tokens: ['Simetrica', 'Blocos', 'Personalizavel'],
-    accent: 'var(--accent-cyan)',
-    highlights: [
-      {
-        title: 'Quando usar',
-        description: 'Protecao de dados em repouso, volumes cifrados ou trafego entre APIs internas.',
-      },
-      {
-        title: 'Vantagem',
-        description: 'Implementacao direta e bibliotecas maduras para a maioria das linguagens.',
-      },
-      {
-        title: 'Cuidados',
-        description: 'Documente tamanho de chave, IV e formato das mensagens para evitar erros.',
-      },
-    ],
-  },
-  {
-    slug: 'criador-2',
-    label: 'Algoritmo 2',
-    summary: 'Slot do integrante 2. Ideal para um algoritmo assimetrico usado em troca de chaves ou assinaturas digitais.',
-    level: 'Avancado',
-    complexity: 'O(n^3)',
-    tokens: ['Assimetrica', 'Assinatura', 'Troca segura'],
-    accent: 'var(--accent-purple)',
-    highlights: [
-      {
-        title: 'Quando usar',
-        description: 'Troca inicial de chaves, emissao de certificados e autenticacao de mensagens.',
-      },
-      {
-        title: 'Vantagem',
-        description: 'Compatibilidade com TLS, PKI interna e integra facilmente com bibliotecas existentes.',
-      },
-      {
-        title: 'Cuidados',
-        description: 'Nao cifrar arquivos grandes diretamente; combine com um algoritmo simetrico.',
-      },
-    ],
-  },
-  {
-    slug: 'criador-3',
-    label: 'Algoritmo 3',
-    summary:
-      'Slot do integrante 3. Indicado para algoritmos de stream com autenticacao embutida (AEAD).',
-    level: 'Intermediario',
-    complexity: 'O(n)',
-    tokens: ['Simetrica', 'Stream', 'AEAD'],
-    accent: 'var(--accent-green)',
-    highlights: [
-      {
-        title: 'Quando usar',
-        description: 'APIs publicas, mensageria em tempo real ou comunicacao entre apps mobile.',
-      },
-      {
-        title: 'Vantagem',
-        description: 'Desempenho consistente mesmo sem aceleracao de hardware.',
-      },
-      {
-        title: 'Cuidados',
-        description: 'Nonce de 96 bits deve ser unico por sessao ou mensagem para evitar replay.',
-      },
-    ],
-  },
-  {
-    slug: 'criador-4',
-    label: 'Algoritmo 4',
-    summary: 'Slot do integrante 4. Use para documentar algoritmos legados ou compatibilidade retro.',
-    level: 'Historico',
-    complexity: 'O(n)',
-    tokens: ['Simetrica', 'Blocos', 'Legado'],
-    accent: 'var(--accent-orange)',
-    highlights: [
-      {
-        title: 'Quando usar',
-        description: 'Integracoes com appliances antigos, VPNs legadas ou sistemas embarcados.',
-      },
-      {
-        title: 'Vantagem',
-        description: 'Codigo simples e facilmente encontrado em projetos antigos.',
-      },
-      {
-        title: 'Cuidados',
-        description: 'Explique as limitacoes de blocos pequenos e incentive migracao quando possivel.',
-      },
-    ],
-  },
-  {
-    slug: 'criador-5',
-    label: 'Algoritmo 5',
-    summary: 'Slot do integrante 5. Ideal para curvas elipticas modernas com foco em chaves pequenas e IoT.',
-    level: 'Avancado',
-    complexity: 'O(n log n)',
-    tokens: ['Assimetrica', 'E2E', 'Chaves pequenas'],
-    accent: 'var(--accent-pink)',
-    highlights: [
-      {
-        title: 'Quando usar',
-        description: 'Mensageria ponta a ponta, IoT, TLS moderno e ambientes com baixa largura de banda.',
-      },
-      {
-        title: 'Vantagem',
-        description: 'Chaves curtas mantendo o mesmo nivel de seguranca que algoritmos tradicionais.',
-      },
-      {
-        title: 'Cuidados',
-        description: 'Utilize bibliotecas confiaveis e valide os pontos recebidos para evitar ataques.',
-      },
-    ],
-  },
+const algorithmPages = [
+  { Component: Algoritmo1, meta: algoritmo1Meta },
+  { Component: Algoritmo2, meta: algoritmo2Meta },
+  { Component: Algoritmo3, meta: algoritmo3Meta },
+  { Component: Algoritmo4, meta: algoritmo4Meta },
+  { Component: Algoritmo5, meta: algoritmo5Meta },
 ]
+
+const algorithms = algorithmPages.map(({ meta }) => meta)
 
 const heroStats = [
   { label: 'Algoritmos prontos', value: algorithms.length, detail: 'cada rota recebe um autor' },
-  { label: 'Rotas dedicadas', value: '/algoritmo-1 ... 5', detail: 'compartilhe o link direto' },
+  {
+    label: 'Rotas dedicadas',
+    value: '/Nome do algoritmo',
+    detail: 'compartilhe o link direto',
+  },
   { label: 'Status', value: 'Live Preview', detail: 'layout pronto para demos' },
 ]
 
@@ -214,8 +113,9 @@ function LibraryLanding() {
           <p className="hero__eyebrow">Expansao</p>
           <h3>Quer adicionar outro algoritmo?</h3>
           <p>
-            Cadastre um novo item no array acima, defina um slug (/algoritmo-x) e escreva um resumo
-            claro. O roteador cria a pagina automaticamente e mantem o mesmo visual.
+            Duplique um dos arquivos em <code>src/pages</code>, defina um novo slug (/algoritmo-x) e
+            ajuste os textos. Depois inclua o meta no array <code>algorithmPages</code> para o card
+            aparecer aqui automaticamente.
           </p>
         </div>
         <a
@@ -231,105 +131,13 @@ function LibraryLanding() {
   )
 }
 
-function AlgorithmPage() {
-  const { slug } = useParams()
-  const navigate = useNavigate()
-  const algorithm = algorithms.find((item) => item.slug === slug)
-
-  if (!algorithm) {
-    return <Navigate to="/" replace />
-  }
-
-  return (
-    <div className="shell algorithm-page" style={{ '--current-accent': algorithm.accent }}>
-      <header className="hero hero--detail">
-        <p className="hero__eyebrow">/{algorithm.slug}</p>
-        <h1>{algorithm.label}</h1>
-        <p className="hero__lead">{algorithm.summary}</p>
-
-        <div className="hero__badges">
-          <span>Nivel: {algorithm.level}</span>
-          <span>Complexidade: {algorithm.complexity}</span>
-        </div>
-
-        <div className="hero__tokens hero__tokens--detail">
-          {algorithm.tokens.map((token) => (
-            <span key={token}>{token}</span>
-          ))}
-        </div>
-
-        <div className="hero__actions">
-          <button className="btn btn--ghost" onClick={() => navigate('/')}>
-            Voltar para biblioteca
-          </button>
-          <button className="btn btn--primary">Compartilhar rota</button>
-        </div>
-      </header>
-
-      <section className="library library--detail">
-        <div className="detail">
-          <p className="hero__eyebrow">Contexto</p>
-          <h2>O que voce encontra nesta rota</h2>
-          <p className="detail__summary">
-            {algorithm.summary} Use o espaco abaixo para explicar porque o algoritmo foi escolhido,
-            quais parametros ele recebe e como interpretar a saida.
-          </p>
-          <p className="detail__slug">
-            URL dedicada para compartilhamento: <code>/{algorithm.slug}</code>
-          </p>
-          <div className="detail__chips">
-            <span>Nivel: {algorithm.level}</span>
-            <span>Complexidade: {algorithm.complexity}</span>
-          </div>
-
-          <div className="detail__grid">
-            {algorithm.highlights.map((item) => (
-              <article key={item.title} className="panel">
-                <p className="panel__eyebrow">{item.title}</p>
-                <p>{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div className="playground">
-          <div className="playground__header">
-            <div>
-              <p className="panel__eyebrow">Simulador</p>
-              <h3>Demonstracao pratica do {algorithm.label}</h3>
-              <p>
-                Inclua formularios, arquivos ou visualizacoes para mostrar o passo a passo. Conte a
-                historia do fluxo: entrada, processamento e resultado final.
-              </p>
-            </div>
-            <button className="btn btn--secondary">Adicionar implementacao</button>
-          </div>
-          <div className="playground__body">
-            <div className="placeholder">
-              <div>
-                <span>Entrada</span>
-                <p>Defina aqui mensagem de teste, chave publica ou parametros extras.</p>
-              </div>
-              <div>
-                <span>Saida</span>
-                <p>
-                  Mostre o buffer cifrado, assinatura, hash ou qualquer resposta relevante para o
-                  publico.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
-}
-
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LibraryLanding />} />
-      <Route path="/:slug" element={<AlgorithmPage />} />
+      {algorithmPages.map(({ meta, Component }) => (
+        <Route key={meta.slug} path={`/${meta.slug}`} element={<Component />} />
+      ))}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
