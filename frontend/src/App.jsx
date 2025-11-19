@@ -86,21 +86,20 @@ function LibraryLanding() {
               onClick={() => handleSelect(algorithm.slug)}
               style={{ '--card-accent': algorithm.accent }}
             >
-              <div className="catalog__card-left">
+              <div className="catalog__card-content">
                 <div className="algorithm-card__header">
                   <h3>{algorithm.label}</h3>
                   <span>{algorithm.level}</span>
                 </div>
                 <p>{algorithm.summary}</p>
-                <code className="algorithm-card__slug">/{algorithm.slug}</code>
-              </div>
-
-              <div className="catalog__card-right">
-                <p>Stack sugerido</p>
-                <div className="algorithm-card__tokens">
-                  {algorithm.tokens.map((token) => (
-                    <span key={token}>{token}</span>
-                  ))}
+                <code className="algorithm-card__slug">{algorithm.slug}</code>
+                <div className="catalog__card-stack">
+                  <p>Stack sugerido</p>
+                  <div className="algorithm-card__tokens">
+                    {algorithm.tokens.map((token) => (
+                      <span key={token}>{token}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </button>
