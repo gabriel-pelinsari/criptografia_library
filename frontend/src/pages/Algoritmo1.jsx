@@ -8,7 +8,7 @@ export const meta = {
   slug: 'chaocipher',
   label: 'Chaocipher',
   summary:
-    'Algoritmo de criptografia clássico que utiliza dois discos rotativos com permutações dinâmicas a cada caractere, tornando a cifra altamente resistente à análise de frequência.',
+    'Algoritmo de criptografia manual inventado por John F. Byrne em 1918, que utiliza dois discos rotativos com permutações dinâmicas a cada caractere. Apesar de Byrne acreditar ser indecifrável, pesquisas de 2016 revelaram vulnerabilidades significativas quando múltiplas mensagens são cifradas com a mesma chave.',
   level: 'Avançado',
   complexity: 'O(n)',
   tokens: ['Simétrica', 'Substituição', 'Histórico'],
@@ -16,15 +16,15 @@ export const meta = {
   highlights: [
     {
       title: 'Quando usar',
-      description: 'Ideal para fins educacionais e demonstração de técnicas de criptografia clássica com permutações dinâmicas.',
+      description: 'Principalmente para fins educacionais e históricos. Demonstra conceitos de criptografia clássica com comportamento autokey, onde cada permutação depende dos caracteres anteriores.',
     },
     {
       title: 'Vantagem',
-      description: 'Resistente à análise de frequência devido às permutações constantes dos discos a cada caractere processado.',
+      description: 'Resistente à análise de frequência básica devido às permutações constantes. O algoritmo foi mantido secreto por décadas (1918-2010), demonstrando o princípio de "segurança por obscuridade".',
     },
     {
       title: 'Cuidados',
-      description: 'Ambas as partes precisam do mesmo alfabeto inicial. Mantenha o alfabeto em segredo como parte da chave.',
+      description: 'Vulnerável a ataques de texto conhecido (50-80 caracteres) e ataques ciphertext-only com 60-80 mensagens "in-depth" (mesma chave). Qualquer erro de transmissão corrompe toda a mensagem subsequente devido ao comportamento autokey.',
     },
   ],
 };
@@ -543,48 +543,97 @@ const ChaocipherContent = () => {
         border: '1px solid rgba(148, 163, 184, 0.2)',
         marginTop: '8px'
       }}>
-        <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '12px', color: '#22d3ee' }}>
+        <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '16px', color: '#22d3ee' }}>
           Como Funciona o Chaocipher
         </h3>
+        
+        <div style={{ marginBottom: '24px', padding: '16px', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', borderLeft: '4px solid #3b82f6' }}>
+          <p style={{ fontSize: '0.875rem', color: '#e5e7eb', lineHeight: '1.6' }}>
+            <strong>Contexto Histórico:</strong> Inventado por John F. Byrne em 1918 e mantido secreto até 2010. 
+            Byrne acreditava que era "materialmente e matematicamente indecifrável", mas análises modernas 
+            revelaram vulnerabilidades significativas (Lasry et al., 2016).
+          </p>
+        </div>
+
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: window.innerWidth >= 768 ? 'repeat(3, 1fr)' : '1fr',
+          gridTemplateColumns: window.innerWidth >= 768 ? 'repeat(2, 1fr)' : '1fr',
           gap: '16px',
           fontSize: '0.875rem',
-          color: '#d1d5db'
+          color: '#d1d5db',
+          marginBottom: '20px'
         }}>
           <div>
-            <h4 style={{ fontWeight: '600', color: '#fff', marginBottom: '8px' }}>🔐 Encriptação:</h4>
+            <h4 style={{ fontWeight: '600', color: '#fff', marginBottom: '8px' }}>🔐 Processo de Encriptação:</h4>
             <ol style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <li>Busca letra no disco direito (plano)</li>
-              <li>Pega letra na mesma posição no disco esquerdo (cifra)</li>
-              <li>Permuta disco esquerdo com a letra cifrada</li>
-              <li>Permuta disco direito com a letra plana</li>
+              <li>Localiza a letra no disco direito (alfabeto plano)</li>
+              <li>Recupera a letra correspondente no disco esquerdo (alfabeto cifrado)</li>
+              <li>Permuta o disco esquerdo usando a letra cifrada</li>
+              <li>Permuta o disco direito usando a letra plana</li>
+              <li>Repete para cada caractere (comportamento autokey)</li>
             </ol>
           </div>
           <div>
-            <h4 style={{ fontWeight: '600', color: '#fff', marginBottom: '8px' }}>🔓 Decriptação:</h4>
+            <h4 style={{ fontWeight: '600', color: '#fff', marginBottom: '8px' }}>🔓 Processo de Decriptação:</h4>
             <ol style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <li>Busca letra no disco esquerdo (cifra)</li>
-              <li>Pega letra na mesma posição no disco direito (plano)</li>
-              <li>Permuta disco esquerdo com a letra cifrada</li>
-              <li>Permuta disco direito com a letra plana descoberta</li>
+              <li>Localiza a letra no disco esquerdo (alfabeto cifrado)</li>
+              <li>Recupera a letra correspondente no disco direito (alfabeto plano)</li>
+              <li>Aplica as mesmas permutações da encriptação</li>
+              <li>Disco esquerdo: usa letra cifrada para permutar</li>
+              <li>Disco direito: usa letra plana descoberta para permutar</li>
             </ol>
           </div>
-          <div>
-            <h4 style={{ fontWeight: '600', color: '#fff', marginBottom: '8px' }}>🔄 Permutações:</h4>
-            <p style={{ marginBottom: '8px' }}><strong>Disco Esquerdo:</strong></p>
-            <ul style={{ paddingLeft: '20px', fontSize: '0.75rem', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <li>Rotaciona até char no zênite</li>
-              <li>Extrai posição 1 → insere no nadir (meio)</li>
-            </ul>
-            <p style={{ marginBottom: '8px', marginTop: '8px' }}><strong>Disco Direito:</strong></p>
-            <ul style={{ paddingLeft: '20px', fontSize: '0.75rem', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <li>Rotaciona até char no zênite</li>
-              <li>Move zênite para o fim</li>
-              <li>Extrai posição 2 → insere no nadir (meio)</li>
-            </ul>
+        </div>
+
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: window.innerWidth >= 768 ? 'repeat(2, 1fr)' : '1fr',
+          gap: '16px',
+          fontSize: '0.875rem',
+          color: '#d1d5db',
+          marginBottom: '20px'
+        }}>
+          <div style={{ padding: '12px', background: 'rgba(168, 85, 247, 0.1)', borderRadius: '8px' }}>
+            <h4 style={{ fontWeight: '600', color: '#a855f7', marginBottom: '8px' }}>⚙️ Permutação do Disco Esquerdo:</h4>
+            <ol style={{ paddingLeft: '20px', fontSize: '0.8rem', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+              <li>Rotaciona até a letra ficar no zênite (posição 0)</li>
+              <li>Extrai o elemento da posição 1</li>
+              <li>Desloca posições 3-nadir uma casa à esquerda</li>
+              <li>Insere o elemento extraído no nadir (meio do disco)</li>
+            </ol>
           </div>
+          <div style={{ padding: '12px', background: 'rgba(234, 179, 8, 0.1)', borderRadius: '8px' }}>
+            <h4 style={{ fontWeight: '600', color: '#eab308', marginBottom: '8px' }}>⚙️ Permutação do Disco Direito:</h4>
+            <ol style={{ paddingLeft: '20px', fontSize: '0.8rem', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+              <li>Rotaciona até a letra ficar no zênite (posição 0)</li>
+              <li>Move o zênite para o final do disco</li>
+              <li>Extrai o elemento da posição 2</li>
+              <li>Desloca posições 4-nadir uma casa à esquerda</li>
+              <li>Insere o elemento extraído no nadir</li>
+            </ol>
+          </div>
+        </div>
+
+        <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px', borderLeft: '4px solid #ef4444' }}>
+          <h4 style={{ fontWeight: '600', color: '#ef4444', marginBottom: '8px' }}>⚠️ Vulnerabilidades Conhecidas</h4>
+          <p style={{ fontSize: '0.8rem', color: '#d1d5db', lineHeight: '1.5', marginBottom: '8px' }}>
+            Segundo Lasry et al. (2016), "Cryptanalysis of Chaocipher and solution of Exhibit 6":
+          </p>
+          <ul style={{ paddingLeft: '20px', fontSize: '0.8rem', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <li><strong>Ataque com texto conhecido:</strong> Requer apenas 50-80 caracteres de texto plano/cifrado correspondentes</li>
+            <li><strong>Ataque ciphertext-only:</strong> Com 60-80 mensagens cifradas com a mesma chave (in-depth), o algoritmo pode ser quebrado usando Index of Coincidence</li>
+            <li><strong>Falha fundamental:</strong> O disco direito não afeta o Index of Coincidence, permitindo ataque "divide-and-conquer"</li>
+            <li><strong>Propagação de erros:</strong> Qualquer erro corrompe toda a decriptação subsequente (característica autokey)</li>
+          </ul>
+        </div>
+
+        <div style={{ marginTop: '16px', padding: '12px', background: 'rgba(34, 211, 238, 0.1)', borderRadius: '8px' }}>
+          <p style={{ fontSize: '0.75rem', color: '#9ca3af', fontStyle: 'italic' }}>
+            <strong>Referência:</strong> Lasry, G., Rubin, M., Kopal, N., & Wacker, A. (2016). 
+            "Cryptanalysis of Chaocipher and solution of Exhibit 6". <em>Cryptologia</em>, 40(2), 
+            demonstra que apesar da engenhosidade do sistema, ele não atende aos princípios de 
+            Kerckhoffs (1883) de que um sistema deve ser seguro mesmo quando o algoritmo é conhecido.
+          </p>
         </div>
       </div>
     </div>
