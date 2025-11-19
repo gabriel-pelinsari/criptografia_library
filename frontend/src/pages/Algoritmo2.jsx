@@ -12,16 +12,28 @@ export const meta = {
   accent: 'var(--accent-purple)',
   highlights: [
     {
-      title: 'Quando usar',
-      description: 'Educação em criptografia, demonstrações históricas e compreensão de cifras de transposição.',
+      title: 'História e Contexto',
+      description: 'A Rail Fence Cipher tem origens na Grécia Antiga com a Scytale espartana (século V a.C.), um bastão cilíndrico onde uma tira de couro era enrolada em espiral. A mensagem era escrita ao longo do bastão e, quando desenrolada, as letras ficavam embaralhadas. Só podia ser lida ao enrolar novamente em um bastão de mesmo diâmetro. Este princípio de transposição geométrica é a base do Rail Fence moderno.',
     },
     {
-      title: 'Vantagem',
-      description: 'Simples de implementar, mantém frequência de letras, excelente para fins didáticos. Variante de trilho adiciona complexidade.',
+      title: 'Como Funciona',
+      description: 'O algoritmo escreve o texto em um padrão zig-zag descendente e ascendente através de N linhas (rails). Por exemplo, com 3 rails, a primeira letra vai na linha 1, segunda na linha 2, terceira na linha 3, quarta volta para linha 2, quinta para linha 1, e assim sucessivamente. O texto cifrado é obtido lendo cada linha da esquerda para direita. A variante de Trilho adiciona uma chave extra: a ordem de leitura das linhas.',
     },
     {
-      title: 'Cuidados',
-      description: 'Não é segura para uso real. Facilmente quebrada por força bruta devido ao número limitado de chaves.',
+      title: 'Matemática e Padrões',
+      description: 'Com N rails, o padrão se repete a cada 2(N-1) caracteres. Para 3 rails: posições 0,4,8... ficam na linha 1; posições 1,3,5,7... na linha 2; posições 2,6,10... na linha 3. O espaço de chaves é N × N! para a variante de trilho (número de rails × permutações de ordem). Com 5 rails: 5 × 120 = 600 combinações possíveis - insuficiente para segurança moderna, mas excelente para demonstrações educacionais.',
+    },
+    {
+      title: 'Vantagens Educacionais',
+      description: 'Ideal para ensinar criptografia porque: (1) Visualização intuitiva do padrão zig-zag; (2) Mantém a frequência de letras, facilitando comparação com cifras de substituição; (3) Demonstra conceitos de chave simétrica (sender e receiver precisam conhecer N e ordem); (4) Implementação simples em qualquer linguagem; (5) Variante de trilho introduz conceito de "espaço de chaves" expandido.',
+    },
+    {
+      title: 'Análise de Segurança',
+      description: 'Vulnerável a ataques de força bruta devido ao espaço de chaves limitado. Com hardware moderno, todas as combinações (até 10 rails) são testáveis em milissegundos. Também vulnerável à análise de frequência de letras, já que apenas reordena (não substitui). Historicamente útil contra adversários sem recursos computacionais, mas completamente inadequada para proteção de dados sensíveis modernos.',
+    },
+    {
+      title: 'Aplicações Modernas',
+      description: 'Hoje usada exclusivamente para: (1) Educação em fundamentos de criptografia; (2) CTF (Capture The Flag) como desafio básico; (3) Jogos de puzzle e escape rooms; (4) Demonstrações históricas de evolução criptográfica; (5) Exemplos em cursos de ciência da computação. Nunca deve ser usada para proteger dados reais - use AES-256, ChaCha20 ou algoritmos modernos certificados.',
     },
   ],
 }
@@ -572,47 +584,89 @@ function RailFenceCipher() {
         borderRadius: '8px',
         borderLeft: '4px solid var(--accent-purple)'
       }}>
-        <h4 style={{ marginBottom: '10px' }}>📚 Como Funciona</h4>
-        <p style={{ fontSize: '14px', lineHeight: '1.6', marginBottom: '15px' }}>
+        <h4 style={{ marginBottom: '15px', fontSize: '18px' }}>📚 Como Funciona</h4>
+        <p style={{ fontSize: '14px', lineHeight: '1.8', marginBottom: '20px', color: 'rgba(255,255,255,0.9)' }}>
           O Rail Fence Cipher é uma cifra de <strong>transposição</strong>, diferente das cifras de 
           <strong> substituição</strong>. Em vez de trocar letras, ela reorganiza a ordem das letras 
           no texto original.
         </p>
         
-        <h5 style={{ marginBottom: '8px', marginTop: '15px' }}>🔹 Variante Clássica:</h5>
-        <ol style={{ fontSize: '14px', lineHeight: '1.8', paddingLeft: '20px' }}>
-          <li>Escreve as letras em padrão zig-zag com N rails</li>
-          <li>Lê cada rail sequencialmente (1, 2, 3...)</li>
-          <li>Concatena para formar o texto cifrado</li>
-        </ol>
-        
-        <h5 style={{ marginBottom: '8px', marginTop: '15px' }}>🔹 Variante de Trilho (Ordem Customizada):</h5>
-        <ol style={{ fontSize: '14px', lineHeight: '1.8', paddingLeft: '20px' }}>
-          <li>Escreve as letras em padrão zig-zag (igual à clássica)</li>
-          <li><strong>Lê os rails em ordem personalizada</strong> (ex: 3, 1, 2)</li>
-          <li>Adiciona uma camada extra de segurança com a chave de ordem</li>
-        </ol>
-        
-        <div style={{ 
-          marginTop: '15px', 
-          padding: '10px', 
-          background: 'rgba(100,200,255,0.1)',
-          borderRadius: '4px',
-          marginBottom: '10px'
+        <div style={{
+          background: 'rgba(255,255,255,0.05)',
+          padding: '15px',
+          borderRadius: '6px',
+          marginBottom: '15px',
+          borderLeft: '3px solid var(--accent-purple)'
         }}>
-          <strong>💡 Exemplo de Trilho:</strong> Com 3 rails e ordem "2,0,1", você lê o rail 3 primeiro, 
-          depois o rail 1, e por último o rail 2. Isso torna a cifra mais difícil de quebrar!
+          <h5 style={{ marginBottom: '10px', fontSize: '15px', color: 'var(--accent-purple)' }}>
+            🔹 Variante Clássica
+          </h5>
+          <ol style={{ fontSize: '14px', lineHeight: '2', paddingLeft: '20px', margin: 0 }}>
+            <li>Escreve as letras em padrão zig-zag com N rails</li>
+            <li>Lê cada rail sequencialmente (1, 2, 3...)</li>
+            <li>Concatena para formar o texto cifrado</li>
+          </ol>
+        </div>
+        
+        <div style={{
+          background: 'rgba(255,255,255,0.05)',
+          padding: '15px',
+          borderRadius: '6px',
+          marginBottom: '15px',
+          borderLeft: '3px solid var(--accent-purple)'
+        }}>
+          <h5 style={{ marginBottom: '10px', fontSize: '15px', color: 'var(--accent-purple)' }}>
+            🔹 Variante de Trilho (Ordem Customizada)
+          </h5>
+          <ol style={{ fontSize: '14px', lineHeight: '2', paddingLeft: '20px', margin: 0 }}>
+            <li>Escreve as letras em padrão zig-zag (igual à clássica)</li>
+            <li><strong>Lê os rails em ordem personalizada</strong> (ex: 3, 1, 2)</li>
+            <li>Adiciona uma camada extra de segurança com a chave de ordem</li>
+          </ol>
         </div>
         
         <div style={{ 
           marginTop: '15px', 
-          padding: '10px', 
-          background: 'rgba(255,200,0,0.1)',
-          borderRadius: '4px'
+          padding: '15px', 
+          background: 'rgba(100,200,255,0.15)',
+          borderRadius: '6px',
+          marginBottom: '15px',
+          borderLeft: '3px solid rgba(100,200,255,0.8)'
         }}>
-          <strong>⚠️ Nota de Segurança:</strong> Mesmo com a variante de trilho, esta cifra não é segura 
-          para uso real. O número de combinações possíveis ainda é limitado (rails! permutações). 
-          Use apenas para fins educacionais!
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+            <span style={{ fontSize: '20px' }}>💡</span>
+            <div>
+              <strong style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
+                Exemplo de Trilho:
+              </strong>
+              <p style={{ fontSize: '14px', lineHeight: '1.7', margin: 0 }}>
+                Com 3 rails e ordem "2,0,1", você lê o rail 3 primeiro, 
+                depois o rail 1, e por último o rail 2. Isso torna a cifra mais difícil de quebrar!
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div style={{ 
+          marginTop: '15px', 
+          padding: '15px', 
+          background: 'rgba(255,200,0,0.15)',
+          borderRadius: '6px',
+          borderLeft: '3px solid rgba(255,200,0,0.8)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+            <span style={{ fontSize: '20px' }}>⚠️</span>
+            <div>
+              <strong style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
+                Nota de Segurança:
+              </strong>
+              <p style={{ fontSize: '14px', lineHeight: '1.7', margin: 0 }}>
+                Mesmo com a variante de trilho, esta cifra não é segura 
+                para uso real. O número de combinações possíveis ainda é limitado (rails! permutações). 
+                Use apenas para fins educacionais!
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
