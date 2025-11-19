@@ -1,5 +1,5 @@
 .shell {
-  width: min(1200px, 100%);
+  width: min(1400px, 100%);
   margin: 0 auto;
   padding: 48px clamp(20px, 4vw, 68px) 72px;
   display: flex;
