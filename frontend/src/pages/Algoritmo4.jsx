@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import AlgorithmLayout from '../components/AlgorithmLayout.jsx'
 
 export const meta = {
-  slug: 'Paula',
+  slug: 'vigenere',
   label: 'Cifra de Vigenère',
   summary: 'Algoritmo de criptografia clássica que usa uma chave para cifrar texto através de uma tabela de substituição polialfabética.',
   level: 'Intermediario',

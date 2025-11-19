@@ -3,7 +3,7 @@ import AlgorithmLayout from '../components/AlgorithmLayout.jsx'
 import './Algoritmo3.css'
 
 export const meta = {
-  slug: 'Gabriel Pelinsari',
+  slug: 'playfair',
   label: 'Cifra de Playfair',
   summary:
     'Cifra histórica que transforma mensagens em pares de letras usando uma grade 5×5. Explore cada passo da cifragem interativamente com visualização dinâmica das regras aplicadas.',

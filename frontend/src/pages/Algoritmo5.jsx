@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const meta = {
-  slug: 'criador-5',
+  slug: 'rot47',
   label: 'ROT47',
   summary: 'Cifra de substituição que rotaciona 47 posições no conjunto de caracteres ASCII imprimíveis.',
   level: 'Básico',
