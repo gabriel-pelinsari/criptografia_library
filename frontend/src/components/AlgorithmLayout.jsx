@@ -44,7 +44,8 @@ export default function AlgorithmLayout({ algorithm, children }) {
         </div>
       </header>
 
-      <section className="library library--detail">
+      <section className="library library--single-column">
+        {/* CONTEXTO - PRIMEIRO */}
         <div className="detail">
           <p className="hero__eyebrow">Contexto</p>
           <h2>O que voce encontra nesta rota</h2>
@@ -67,6 +68,7 @@ export default function AlgorithmLayout({ algorithm, children }) {
           </div>
         </div>
 
+        {/* SIMULADOR - DEPOIS */}
         <div className="playground">
           <div className="playground__header">
             <div>
@@ -82,6 +84,24 @@ export default function AlgorithmLayout({ algorithm, children }) {
           <div className="playground__body">{children ?? <Placeholder />}</div>
         </div>
       </section>
+
+      <style>{`
+        .library--single-column {
+          display: flex;
+          flex-direction: column !important;
+          gap: 40px;
+        }
+
+        .library--single-column .detail {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .library--single-column .playground {
+          width: 100%;
+          max-width: 100%;
+        }
+      `}</style>
     </div>
   )
 }
