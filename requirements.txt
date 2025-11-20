@@ -1,0 +1,8 @@
+# Criptografia Library - Exercício Programa
+# Dependências do projeto de quebra de cifras clássicas
+
+# Artefato 2 - Quebra de Permutação com validação IA
+google-genai>=0.3.0
+
+# Dependências opcionais para desenvolvimento
+# pip install -r requirements-dev.txt (se criar arquivo separado)

@@ -7,11 +7,8 @@ import os
 from pathlib import Path
 from typing import List, Tuple, Dict
 
-from google import genai  # pip install google-genai
+from google import genai
 
-
-# Se preferir, comente esta linha e use a variável de ambiente GEMINI_API_KEY
-# export GEMINI_API_KEY="sua_chave_aqui"
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "YOUR_API_KEY_HERE")
 
 
@@ -49,26 +46,19 @@ class PermutationBreaker:
     def __init__(self, scorer: NgramScorer):
         self.scorer = scorer
 
-    # =========================
-    # 1) TRANSPOSTO COLUNAR
-    # =========================
     def _columnar_decrypt(self, ciphertext: str, key: List[int]) -> str:
-        """Descriptografa transposição colunar com a chave dada."""
         ciphertext = ciphertext.upper().replace(' ', '').replace('\n', '')
         n_cols = len(key)
         n_rows = math.ceil(len(ciphertext) / n_cols)
 
-        # Ordena posições pela chave (rank menor = coluna lida antes)
         sorted_positions = sorted(range(n_cols), key=lambda x: key[x])
 
-        # Calcula comprimentos das colunas
         col_lengths = [n_rows] * n_cols
         remainder = len(ciphertext) % n_cols
         if remainder != 0:
             for col in range(remainder, n_cols):
                 col_lengths[col] = n_rows - 1
 
-        # Reconstrói a grade
         grid = [[''] * n_cols for _ in range(n_rows)]
         idx = 0
         for col_pos in sorted_positions:
@@ -120,7 +110,6 @@ class PermutationBreaker:
         return best_key, best_text
 
     def break_columnar(self, ciphertext: str, key_length: int) -> Tuple[str, List[int], float]:
-        """Quebra transposição colunar assumindo apenas o tamanho da chave."""
         if key_length <= 8:
             best_score = float('-inf')
             best_key, best_text = None, None
@@ -138,16 +127,7 @@ class PermutationBreaker:
             score = self.scorer.score(text)
             return text, key, score
 
-    # =========================
-    # 2) PERMUTAÇÃO POR BLOCOS
-    # =========================
     def _block_decrypt(self, ciphertext: str, key: List[int]) -> str:
-        """
-        Descriptografa permutação por blocos.
-        Convenção:
-          - key[i] = posição no bloco cifrado de onde vem o caractere plaintext[i].
-          - Ou seja: plain[i] = cipher_block[key[i]].
-        """
         ciphertext = ciphertext.upper().replace(' ', '').replace('\n', '')
         n = len(key)
         plaintext_blocks = []
@@ -208,7 +188,6 @@ class PermutationBreaker:
         return best_key, best_text
 
     def break_block(self, ciphertext: str, key_length: int) -> Tuple[str, List[int], float]:
-        """Quebra permutação por blocos assumindo apenas o tamanho da chave."""
         if key_length <= 8:
             best_score = float('-inf')
             best_key, best_text = None, None
@@ -228,14 +207,6 @@ class PermutationBreaker:
 
 
 def choose_with_gemini(candidates: Dict[str, Dict]) -> Tuple[str, str]:
-    """
-    Usa o Gemini para:
-      1) escolher qual candidato parece melhor plaintext em inglês
-      2) sugerir uma versão "limpa" do texto original, COM ESPAÇOS ENTRE AS PALAVRAS.
-
-    Retorna (best_label, suggestion_text).
-    Se der erro, levanta exceção para o caller tratar.
-    """
     if not GEMINI_API_KEY or GEMINI_API_KEY == "YOUR_API_KEY_HERE":
         raise RuntimeError("GEMINI_API_KEY não configurada.")
 
@@ -301,9 +272,6 @@ def choose_with_gemini(candidates: Dict[str, Dict]) -> Tuple[str, str]:
 
 
 def main():
-
-    # ciphertext = "UQTHERBICKOFOWNPMXJUEVEDOLERTHODAZYG"
-    # ciphertext = "QBFMELOHCWJOHYUROPRAGTIOXSTZEKNUVED"
     ciphertext = "ROTOMTAROWRBTHEFOEAKTNDAWLIHESOEENCMEFTHATOUNIWINSSELLBETHATHTREDOOETRLIPSWAVLADNINCEICPREROSEFOIMATDINGUWYEDBOSEEKVRFSUALEILNANCEARDSTTYTEGITHESERLLGWYYSKERILLTCFLEETTHENONSIIRCAREYEDBOSACHRELDINONOTEHLYTHGWEIHTTOFEWEIRSNAPOHTBUTGIEWETFHTOSIHEHTYTORSIHATTUABOWETOBETRITN"
 
     script_dir = Path(__file__).parent
@@ -322,15 +290,12 @@ def main():
     print(f"Len: {len(ciphertext)} caracteres")
 
     min_key_len = 2
-    max_key_len = 10  # pode ajustar
-
-    # Vamos guardar TODOS os candidatos (modo, key_len) -> (texto, chave, score)
+    max_key_len = 10
     candidates: Dict[str, Dict] = {}
 
     for key_len in range(min_key_len, max_key_len + 1):
         print(f"\n=== Testando key_len = {key_len} ===")
 
-        # 1) Modelo: transposição colunar
         text_col, key_col, score_col = breaker.break_columnar(ciphertext, key_len)
         label_col = f"columnar_{key_len}"
         candidates[label_col] = {
@@ -342,7 +307,6 @@ def main():
         }
         print(f"[COLUNAR] score={score_col:.2f}, key={key_col}, preview={text_col[:60]}")
 
-        # 2) Modelo: permutação por blocos
         text_blk, key_blk, score_blk = breaker.break_block(ciphertext, key_len)
         label_blk = f"block_{key_len}"
         candidates[label_blk] = {
@@ -354,7 +318,6 @@ def main():
         }
         print(f"[BLOCOS ] score={score_blk:.2f}, key={key_blk}, preview={text_blk[:60]}")
 
-    # Tenta usar o Gemini para escolher o melhor e sugerir plaintext
     best_label = None
     suggestion = None
     try:
@@ -362,7 +325,6 @@ def main():
         print("\n✅ Gemini usado para escolha do melhor candidato.")
     except Exception as e:
         print(f"\n⚠️ Falha ao usar Gemini ({e}). Usando melhor score de n-gramas.")
-        # Escolhe melhor candidato por score de n-gramas
         best_label = max(candidates.keys(), key=lambda lab: candidates[lab]["score"])
         suggestion = candidates[best_label]["text"]
 

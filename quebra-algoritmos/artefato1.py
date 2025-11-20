@@ -231,7 +231,7 @@ if __name__ == "__main__":
 
     ciphertext = preprocess_ciphertext(ciphertext)
 
-    scorer = EnglishScorer(quadgram_file="./quebra-algoritmos/english_quadgrams.txt")
+    scorer = EnglishScorer(quadgram_file="./quebra-algoritmos/quadgrams.txt")
 
     decoder = SimulatedAnnealingDecoder(
         ciphertext=ciphertext,
