@@ -184,65 +184,63 @@ and sixty cents of it was in pennies...
 ```
 
 
-### 📊 Exemplos de Cifras de César para Teste
+### 📊 Exemplos de Cifras
 
-Para facilitar a validação do Artefato 1, fornecemos 10 criptogramas gerados com a **Cifra de César** utilizando chaves diferentes. Cada exemplo preserva espaçamento e pontuação original:
-
-#### Criptograma 1 (Chave = 3)
+#### Criptograma 1 
 ```
 Wkh wurrsv zloo dgydqfh dw vxqulvh, pdlqwdlqlqj frpsohwh udglr vlohqfh.
 ```
 **Texto original:** "The troops will advance at sunrise, maintaining complete radio silence."
 
-#### Criptograma 2 (Chave = 7)
+#### Criptograma 2 
 ```
 Vulk aol zpnual pz jvumpylk, wyvjllk kpyljabs av aol mhssihjs wvzpaavu.
 ```
 **Texto original:** "Once the signal is confirmed, proceed directly to the fallback position."
 
-#### Criptograma 3 (Chave = 10)
+#### Criptograma 3
 ```
 Go wedy zbydmo dro myxfyi lopbyo mbyccyxq dro lybnob kd wynxyqrd.
 ```
 **Texto original:** "We must protect the convoy before crossing the border at midnight."
 
-#### Criptograma 4 (Chave = 15)
+#### Criptograma 4 
 ```
 Iwt duxrtg lxaa plfpxi xcxigjtixdch jcixw ujgiwth cdixrt.
 ```
 **Texto original:** "The officer will await instructions until further notice."
 
-#### Criptograma 5 (Chave = 5)
+#### Criptograma 5
 ```
 Jafhzyj nrrjinfsj nk ymj jstrd fuuwtfhmjx kwtr ymj jfxy bfqq.
 ```
 **Texto original:** "Evacuate immediately if the enemy approaches from the east wall."
 
-#### Criptograma 6 (Chave = 11)
+#### Criptograma 6 
 ```
 Dpnfcp lww zavpwwtrpynp cpalcef lyo opstcag lzg ecpnp la estd lapcpetaz.
 ```
 **Texto original:** "Secure all intelligence reports and destroy any trace of this operation."
 
-#### Criptograma 7 (Chave = 2)
+#### Criptograma 7
 ```
 Rtqeggf ykvj ecwvkqp, cu gpgoa hqtegu oca dg fkuikugf cu ekxknekcpu.
 ```
 **Texto original:** "Proceed with caution, as enemy forces may be disguised as civilians."
 
-#### Criptograma 8 (Chave = 13)
+#### Criptograma 8
 ```
 Bapr jr npgvingr gur qvirefvba, ergernr vzzrqvngryl gb gur evqtr.
 ```
 **Texto original:** "Once we activate the diversion, retreat immediately to the ridge."
 
-#### Criptograma 9 (Chave = 6)
+#### Criptograma 9 
 ```
 Znke cozz gzzksvz zu hxkgq znk rotk ayotm ktkxvkizkj zgizoi.
 ```
 **Texto original:** "They will attempt to break the line using unexpected tactics."
 
-#### Criptograma 10 (Chave = 4)
+#### Criptograma 10
 ```
 Aemq yrxmp gsrjmvqih fc gsqqerh, xlir ettvsego uymixpc jvsq xli aiwx wmhi.
 ```
