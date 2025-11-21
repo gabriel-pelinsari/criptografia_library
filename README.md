@@ -183,18 +183,88 @@ one dollar and eighty-seven cents. that was was all.
 and sixty cents of it was in pennies...
 ```
 
+
+### 📊 Exemplos de Cifras de César para Teste
+
+Para facilitar a validação do Artefato 1, fornecemos 10 criptogramas gerados com a **Cifra de César** utilizando chaves diferentes. Cada exemplo preserva espaçamento e pontuação original:
+
+#### Criptograma 1 (Chave = 3)
+```
+Wkh wurrsv zloo dgydqfh dw vxqulvh, pdlqwdlqlqj frpsohwh udglr vlohqfh.
+```
+**Texto original:** "The troops will advance at sunrise, maintaining complete radio silence."
+
+#### Criptograma 2 (Chave = 7)
+```
+Vulk aol zpnual pz jvumpylk, wyvjllk kpyljabs av aol mhssihjs wvzpaavu.
+```
+**Texto original:** "Once the signal is confirmed, proceed directly to the fallback position."
+
+#### Criptograma 3 (Chave = 10)
+```
+Go wedy zbydmo dro myxfyi lopbyo mbyccyxq dro lybnob kd wynxyqrd.
+```
+**Texto original:** "We must protect the convoy before crossing the border at midnight."
+
+#### Criptograma 4 (Chave = 15)
+```
+Iwt duxrtg lxaa plfpxi xcxigjtixdch jcixw ujgiwth cdixrt.
+```
+**Texto original:** "The officer will await instructions until further notice."
+
+#### Criptograma 5 (Chave = 5)
+```
+Jafhzyj nrrjinfsj nk ymj jstrd fuuwtfhmjx kwtr ymj jfxy bfqq.
+```
+**Texto original:** "Evacuate immediately if the enemy approaches from the east wall."
+
+#### Criptograma 6 (Chave = 11)
+```
+Dpnfcp lww zavpwwtrpynp cpalcef lyo opstcag lzg ecpnp la estd lapcpetaz.
+```
+**Texto original:** "Secure all intelligence reports and destroy any trace of this operation."
+
+#### Criptograma 7 (Chave = 2)
+```
+Rtqeggf ykvj ecwvkqp, cu gpgoa hqtegu oca dg fkuikugf cu ekxknekcpu.
+```
+**Texto original:** "Proceed with caution, as enemy forces may be disguised as civilians."
+
+#### Criptograma 8 (Chave = 13)
+```
+Bapr jr npgvingr gur qvirefvba, ergernr vzzrqvngryl gb gur evqtr.
+```
+**Texto original:** "Once we activate the diversion, retreat immediately to the ridge."
+
+#### Criptograma 9 (Chave = 6)
+```
+Znke cozz gzzksvz zu hxkgq znk rotk ayotm ktkxvkizkj zgizoi.
+```
+**Texto original:** "They will attempt to break the line using unexpected tactics."
+
+#### Criptograma 10 (Chave = 4)
+```
+Aemq yrxmp gsrjmvqih fc gsqqerh, xlir ettvsego uymixpc jvsq xli aiwx wmhi.
+```
+**Texto original:** "Wait until confirmed by command, then approach quietly from the west side."
+
+**Nota de uso:** Copie qualquer um destes criptogramas e insira na variável `ciphertext` do arquivo `artefato1.py` para testar o quebrador. O sistema deve identificar automaticamente a chave correta e recuperar o texto original.
+
+---
+
+
 ### 🎯 Cobertura de Cifras
 
 Este artefato quebra **todas** as seguintes cifras clássicas:
 
-| Cifra | Descrição | Coberto? |
-|-------|-----------|----------|
-| **César** | Deslocamento fixo de N posições | ✅ Sim |
-| **ROT13** | Deslocamento de 13 posições | ✅ Sim |
-| **Atbash** | Inversão do alfabeto (A↔Z, B↔Y...) | ✅ Sim |
-| **Substituição Simples** | Mapeamento arbitrário 1:1 | ✅ Sim |
-| **Vigenère (chave=1)** | Caso degenerado = César | ✅ Sim |
-| **Alfabeto Misto** | Permutação arbitrária do alfabeto | ✅ Sim |
+| Cifra                    | Descrição                          | Coberto? |
+| ------------------------ | ---------------------------------- | -------- |
+| **César**                | Deslocamento fixo de N posições    | ✅ Sim    |
+| **ROT13**                | Deslocamento de 13 posições        | ✅ Sim    |
+| **Atbash**               | Inversão do alfabeto (A↔Z, B↔Y...) | ✅ Sim    |
+| **Substituição Simples** | Mapeamento arbitrário 1:1          | ✅ Sim    |
+| **Vigenère (chave=1)**   | Caso degenerado = César            | ✅ Sim    |
+| **Alfabeto Misto**       | Permutação arbitrária do alfabeto  | ✅ Sim    |
 
 **Justificativa técnica:** Todas essas cifras são casos especiais de substituição monoalfabética, onde cada letra sempre mapeia para a mesma letra cifrada.
 
@@ -411,14 +481,14 @@ will be shattered by the troop's arrival. The general has ordered...
 
 Este artefato quebra **todas** as seguintes cifras de permutação:
 
-| Cifra | Descrição | Coberto? |
-|-------|-----------|----------|
-| **Transposição Colunar** | Grade com leitura por colunas | ✅ Sim |
-| **Rail Fence** | Escrita em zigue-zague | ✅ Sim* |
-| **Permutação por Blocos** | Blocos com permutação interna | ✅ Sim |
-| **Rotação de Matriz** | Rotação 90°/180°/270° | ✅ Sim* |
-| **Espelho Horizontal/Vertical** | Inversão de ordem | ✅ Sim* |
-| **Route Cipher** | Leitura em espiral/padrão | ✅ Sim* |
+| Cifra                           | Descrição                     | Coberto? |
+| ------------------------------- | ----------------------------- | -------- |
+| **Transposição Colunar**        | Grade com leitura por colunas | ✅ Sim    |
+| **Rail Fence**                  | Escrita em zigue-zague        | ✅ Sim*   |
+| **Permutação por Blocos**       | Blocos com permutação interna | ✅ Sim    |
+| **Rotação de Matriz**           | Rotação 90°/180°/270°         | ✅ Sim*   |
+| **Espelho Horizontal/Vertical** | Inversão de ordem             | ✅ Sim*   |
+| **Route Cipher**                | Leitura em espiral/padrão     | ✅ Sim*   |
 
 \* *Estas cifras são casos especiais de transposição colunar com parâmetros específicos.*
 
@@ -557,6 +627,32 @@ min_key_len = 2      # Tamanho mínimo da chave a testar
 max_key_len = 10     # Tamanho máximo da chave a testar
 ```
 
+Decrypts a rail fence cipher with automatic key detection.
+
+This module implements a rail fence cipher decoder that attempts to decrypt
+ciphertext by trying different numbers of rails and analyzing the resulting
+plaintexts using English language frequency analysis.
+
+Test Cases:
+    The following ciphertexts can be used to test the decoder:
+    
+    1. "UQTHERBICKOFOWNPMXJUEVEDOLERTHODAZYG"
+    2. "QBFMELOHCWJOHYUROPRAGTIOXSTZEKNUVED"
+    3. "ROTOMTAROWRBTHEFOEAKTNDAWLIHESOEENCMEFTHATOUNIWINSSELLBETHATHTREDOOETRLIPSWAVLADNINCEICPREROSEFOIMATDINGUWYEDBOSEEKVRFSUALEILNANCEARDSTTYTEGITHESERLLGWYYSKERILLTCFLEETTHENONSIIRCAREYEDBOSACHRELDINONOTEHLYTHGWEIHTTOFEWEIRSNAPOHTBUTGIEWETFHTOSIHEHTYTORSIHATTUABOWETOBETRITN"
+    4. "ETHTATKACTISOOMORRW"
+    5. "ESSNWFRRETTLTEEHHELTUBDAAHAIIER"
+    6. "LIIWTTLATKACONHEBHRTBEASAEEROTDYAVADAENCNITNMEP"
+    7. "ANBAASNAEYREWOLLOLCOTDREIPROFLCATIRUDISWCYELUSONADMENUROEHDTLRWORODFIETHEWRSLFETROAVSDANTTOFUTEXHTRERAEYROEBLNNIEGARCNBUOSHENANBTAANSEREADANNKRETNOWAEOBAEGRUOTSOERCENFEAYRGOPNDSSTAAMIULESWESLANESSLATIATVISNMITRFOOBHENIDYIDADNOTIEBTOEGINNEATWWRARNHETEIPCYHEEBANDEUSACINSSKETOMOSEHIVDANOIARUCUSANLIERRYEPCIIESBVANGASERELTINDANIRUTUOTIOOSFRODFPOPEFOLEKLALSDIN"
+    8. "AIVTIUACOOLTAOTNDESNLSNPI"
+    9. "WETHWDINPSHIDEERORTHTHUGMEHESYPTEETRSATSKSDUTTSEIDLETSNACYRAADATDERTWTBETNEEHSHEWOADAESSIHRCOFNGRARWSHMTWEOMERHEHTINSIEDCNTASUEMCEICDEHONIFALYTLAEIKOMMERTRYGNYITTNODAOFNOETTHIGTLFEFFDINEERISTAEHFTLRWOSADWEIQUPYTLAPREGNRISRFOTEOMGNHIESUNEN"
+    10. "NAAMOOSTOLDATANEEETHOEDGEHFTREPITACOLLBINIOWTNGIASHEWYLTHDINTAEWDECHHETHZIORSAONAWIFNIITROGFNAANRESWYLONSETHOCEAGDULNEIVENOOWEKNNSHIBEAMVEUTOYEREFNEIHLTLISSECEN"
+
+Usage:
+    Uncomment one of the test cases above and run the decoder to analyze
+    the ciphertext and attempt decryption with various rail configurations.
+
+Para mais detalhes do artefato dois verifique a documentação detalhada em `quebra-algoritmos/docs/artefato2.md`
+
 ### Parâmetros Avançados
 
 #### Artefato 1 - Ajuste de Simulated Annealing
@@ -614,20 +710,20 @@ iterations = 100000       # Número de iterações
 ### Tempo de Execução
 
 #### Artefato 1
-| Comprimento do Texto | Tempo Médio |
-|---------------------|-------------|
-| 100 caracteres | ~2 segundos |
-| 500 caracteres | ~8 segundos |
-| 1000 caracteres | ~15 segundos |
-| 5000 caracteres | ~45 segundos |
+| Comprimento do Texto | Tempo Médio  |
+| -------------------- | ------------ |
+| 100 caracteres       | ~2 segundos  |
+| 500 caracteres       | ~8 segundos  |
+| 1000 caracteres      | ~15 segundos |
+| 5000 caracteres      | ~45 segundos |
 
 #### Artefato 2
-| Tamanho da Chave | Modo | Tempo por Tamanho |
-|------------------|------|-------------------|
-| 2-5 | Busca exaustiva | <1 segundo |
-| 6-8 | Busca exaustiva | 1-10 segundos |
-| 9-10 | Simulated Annealing | 15-30 segundos |
-| 11-15 | Simulated Annealing | 30-60 segundos |
+| Tamanho da Chave | Modo                | Tempo por Tamanho |
+| ---------------- | ------------------- | ----------------- |
+| 2-5              | Busca exaustiva     | <1 segundo        |
+| 6-8              | Busca exaustiva     | 1-10 segundos     |
+| 9-10             | Simulated Annealing | 15-30 segundos    |
+| 11-15            | Simulated Annealing | 30-60 segundos    |
 
 *Nota: Tempos testados em Intel i5 @ 2.5GHz*
 
@@ -662,15 +758,15 @@ Taxa de acerto: 100% + formatação correta
 
 ### Análise Comparativa
 
-| Aspecto | Artefato 1 | Artefato 2 |
-|---------|------------|------------|
-| **Tipo de cifra** | Substituição | Permutação |
-| **Espaço de busca** | 26! ≈ 4×10²⁶ | n! (variável) |
+| Aspecto              | Artefato 1          | Artefato 2               |
+| -------------------- | ------------------- | ------------------------ |
+| **Tipo de cifra**    | Substituição        | Permutação               |
+| **Espaço de busca**  | 26! ≈ 4×10²⁶        | n! (variável)            |
 | **Método principal** | Simulated Annealing | Híbrido (exaustivo + SA) |
-| **Validação** | Score de n-gramas | N-gramas + IA |
-| **Precisão** | 85-95% | 90-98% |
-| **Velocidade** | Média | Rápida (chaves pequenas) |
-| **Uso de IA** | Não | Sim (Gemini) |
+| **Validação**        | Score de n-gramas   | N-gramas + IA            |
+| **Precisão**         | 85-95%              | 90-98%                   |
+| **Velocidade**       | Média               | Rápida (chaves pequenas) |
+| **Uso de IA**        | Não                 | Sim (Gemini)             |
 
 ---
 
